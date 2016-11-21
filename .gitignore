@@ -1,0 +1,8 @@
+# compiled output
+
+# dependencies
+/node_modules
+/bower_components
+/.idea
+/apidoc
+
