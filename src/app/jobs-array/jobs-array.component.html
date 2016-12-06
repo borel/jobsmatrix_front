@@ -1,53 +1,46 @@
 <div style="border: 2px solid green; border-radius: 5px; padding: 1em;">
-      <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 
-        <div formArrayName="jobsCriterias">
-          <table class="simple-table">
-            <tr>
-              <th>Critéres</th>
-              <th>Facebook
-                <button style="color: white; background: rgba(255, 0, 0, .5)">x</button>
-              </th>
-              <th>Google
-                <button style="color: white; background: rgba(255, 0, 0, .5)">x</button>
-              </th>
-            </tr>
 
-            <tbody>
-            <div *ngFor="let address of myForm.controls.jobsCriterias.controls; let i=index">
-              <tr>
-                <td>
-                  Critére {{i + 1}}
-                </td>
-                <div [formGroupName]="i">
-                  <td>
-                    <input type="text" class="form-control" formControlName="name">
-                  </td>
-                  <td>
-                    <input type="text" class="form-control" formControlName="realValue">
-                  </td>
-                </div>
-              </tr>
+    <table class="simple-table">
+      <!--<tr>-->
+      <!--<th>Critéres</th>-->
+      <!--<th>Facebook-->
+      <!--<button style="color: white; background: rgba(255, 0, 0, .5)">x</button>-->
+      <!--</th>-->
+      <!--<th>Google-->
+      <!--<button style="color: white; background: rgba(255, 0, 0, .5)">x</button>-->
+      <!--</th>-->
+      <!--</tr>-->
+      <div formArrayName="criteria">
+
+      <tbody>
+      <div formArrayName="companies">
+        <div *ngFor="let company of myForm.controls.companies.controls; let i=index">
+          <tr>
+            <div [formGroupName]="i">
+              <td>
+                <input type="text" class="form-control" formControlName="nameCompany">
+              </td>
+              <td>
+                <input type="text" class="form-control" formControlName="realValue">
+              </td>
+              <td>
+                <input type="text" class="form-control" formControlName="ponderateValue">
+              </td>
             </div>
-            </tbody>
-          </table>
+          </tr>
         </div>
+      </div>
+      </tbody>
+    </table>
 
-        <div class="margin-20">
-          <a (click)="addAddress()" style="cursor: default">
-            Add another criteria +
-          </a>
-        </div>
 
-        <!--<div class="margin-20">-->
-        <!--<button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>-->
-        <!--</div>-->
-        <!--<div class="clearfix"></div>-->
+    <div class="margin-20">
+      <a (click)="addCriteria()" style="cursor: default">
+        Add another criteria +
+      </a>
+    </div>
 
-        <!--<div class="margin-20">-->
-        <!--<div>myForm details:-</div>-->
-        <!--<pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>-->
-        <!--<pre>form value: <br>{{myForm.value | json}}</pre>-->
-        <!--</div>-->
-      </form>
+  </form>
 </div>

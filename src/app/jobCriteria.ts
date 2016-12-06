@@ -1,9 +1,10 @@
 export interface jobsCriteria {
+  nameCriteria : string;
   companies: Company[];
 }
 
 export interface Company {
-  name : string;
+  nameCompany : string;
   realValue: string;
   ponderateValue: string;
 }

@@ -16,28 +16,43 @@ export class JobsArrayComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myForm = this._fb.group({
-      jobsCriterias: this._fb.array([
-        this.initAddress(),
+    this.myForm = this.initCriteria();
+  }
+
+  initCriteria(){
+    return this._fb.group({
+      nameCriteria: ['Lieu'],
+      companies: this._fb.array([
+        this.initCompany(),
       ])
     });
   }
-
-  initAddress() {
+   initCompany() {
     return this._fb.group({
-      name: ['Name'],
-      realValue: ['Real Value'],
-      ponderateValue: ['Ponderate Value'],
+      nameCompany: [''],
+      realValue: [''],
+      ponderateValue: [''],
     });
   }
 
-  addAddress() {
-    const control = <FormArray>this.myForm.controls['jobsCriterias'];
-    control.push(this.initAddress());
+  addCriteria() {
+    const control = <FormArray>this.myForm.controls['criterias'];
+    control.push(this.initCriteria());
   }
 
-  removeAddress(i: number) {
-    const control = <FormArray>this.myForm.controls['jobsCriterias'];
+  removeCriteria(i: number) {
+    const control = <FormArray>this.myForm.controls['criterias'];
+    control.removeAt(i);
+  }
+
+
+  addCompany() {
+    const control = <FormArray>this.myForm.controls['company'];
+    control.push(this.initCriteria());
+  }
+
+  removeCompany(i: number) {
+    const control = <FormArray>this.myForm.controls['company'];
     control.removeAt(i);
   }
 
