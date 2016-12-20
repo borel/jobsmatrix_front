@@ -1,46 +1,57 @@
-<div style="border: 2px solid green; border-radius: 5px; padding: 1em;">
-  <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
-
-
-    <table class="simple-table">
-      <!--<tr>-->
-      <!--<th>Critéres</th>-->
-      <!--<th>Facebook-->
-      <!--<button style="color: white; background: rgba(255, 0, 0, .5)">x</button>-->
-      <!--</th>-->
-      <!--<th>Google-->
-      <!--<button style="color: white; background: rgba(255, 0, 0, .5)">x</button>-->
-      <!--</th>-->
-      <!--</tr>-->
-      <div formArrayName="criteria">
-
-      <tbody>
-      <div formArrayName="companies">
-        <div *ngFor="let company of myForm.controls.companies.controls; let i=index">
-          <tr>
-            <div [formGroupName]="i">
-              <td>
-                <input type="text" class="form-control" formControlName="nameCompany">
-              </td>
-              <td>
-                <input type="text" class="form-control" formControlName="realValue">
-              </td>
-              <td>
-                <input type="text" class="form-control" formControlName="ponderateValue">
-              </td>
-            </div>
-          </tr>
-        </div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="margin-20">
+        <h4>Add customer</h4>
       </div>
-      </tbody>
-    </table>
+      <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" formControlName="name">
+          <small *ngIf="!myForm.controls.name.valid" class="text-danger">
+            Name is required (minimum 5 characters).
+          </small>
+        </div>
+        <!--addresses-->
+        <div formArrayName="addresses">
+          <div *ngFor="let address of myForm.controls.addresses.controls; let i=index" class="panel panel-default">
+            <div class="panel-heading">
+              <span>Address {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.addresses.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div class="panel-body" [formGroupName]="i">
+              <div class="form-group col-xs-6">
+                <label>street</label>
+                <input type="text" class="form-control" formControlName="street">
+                <small [hidden]="myForm.controls.addresses.controls[i].controls.street.valid" class="text-danger">
+                  Street is required
+                </small>
+              </div>
+              <div class="form-group col-xs-6">
+                <label>postcode</label>
+                <input type="text" class="form-control" formControlName="postcode">
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div class="margin-20">
+          <a (click)="addAddress()" style="cursor: default">
+            Add another address +
+          </a>
+        </div>
 
-    <div class="margin-20">
-      <a (click)="addCriteria()" style="cursor: default">
-        Add another criteria +
-      </a>
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+          <pre>form value: <br>{{myForm.value | json}}</pre>
+        </div>
+      </form>
     </div>
-
-  </form>
+  </div>
 </div>

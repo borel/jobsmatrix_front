@@ -1,58 +1,39 @@
-import {Component, OnInit} from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import {jobsCriteria} from "./../jobCriteria";
 
 @Component({
   selector: 'app-jobs-array',
-  templateUrl: './jobs-array.component.html',
-  styleUrls: ['./jobs-array.component.css']
+  templateUrl: 'jobs-array.component.html',
 })
-
 export class JobsArrayComponent implements OnInit {
-
   public myForm: FormGroup;
 
-  constructor(private _fb: FormBuilder) {
-  }
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit() {
-    this.myForm = this.initCriteria();
-  }
-
-  initCriteria(){
-    return this._fb.group({
-      nameCriteria: ['Lieu'],
-      companies: this._fb.array([
-        this.initCompany(),
+    this.myForm = this._fb.group({
+      name: ['', [Validators.required, Validators.minLength(5)]],
+      addresses: this._fb.array([
+        this.initAddress(),
       ])
     });
   }
-   initCompany() {
+
+  initAddress() {
     return this._fb.group({
-      nameCompany: [''],
-      realValue: [''],
-      ponderateValue: [''],
+      street: ['', Validators.required],
+      postcode: ['']
     });
   }
 
-  addCriteria() {
-    const control = <FormArray>this.myForm.controls['criterias'];
-    control.push(this.initCriteria());
+  addAddress() {
+    const control = <FormArray>this.myForm.controls['addresses'];
+    control.push(this.initAddress());
   }
 
-  removeCriteria(i: number) {
-    const control = <FormArray>this.myForm.controls['criterias'];
-    control.removeAt(i);
-  }
-
-
-  addCompany() {
-    const control = <FormArray>this.myForm.controls['company'];
-    control.push(this.initCriteria());
-  }
-
-  removeCompany(i: number) {
-    const control = <FormArray>this.myForm.controls['company'];
+  removeAddress(i: number) {
+    const control = <FormArray>this.myForm.controls['addresses'];
     control.removeAt(i);
   }
 
@@ -61,5 +42,4 @@ export class JobsArrayComponent implements OnInit {
     // ...
     console.log(model);
   }
-
 }

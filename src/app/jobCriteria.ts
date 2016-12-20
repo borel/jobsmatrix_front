@@ -1,4 +1,8 @@
 export interface jobsCriteria {
+  criterias: Criteria[];
+}
+
+export interface Criteria {
   nameCriteria : string;
   companies: Company[];
 }
